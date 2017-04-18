@@ -25,4 +25,24 @@ RSpec.describe Link, type: :model do
       expect(link.read_count).to eq 1
     end
   end
+
+  context '.top_ten' do
+
+    before do
+      20.times { |n| create(:link, read_count: n) }
+    end
+
+    it 'returns top ten links by read count' do
+      top_links = Link.top_ten
+
+      expect(top_links).to be_an Array
+      expect(top_links.length).to eq 10
+
+      top_links.each { |link| expect(link.read_count).to be >= 10 }
+
+      sorted = top_links.sort_by { |link| -link.read_count }
+
+      expect(top_links).to eq sorted
+    end
+  end
 end
