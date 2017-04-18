@@ -11,4 +11,15 @@ class Link < ApplicationRecord
       link.read_count
     end.reverse[0..9]
   end
+
+  def status
+    top_ten = self.class.top_ten
+    if self == top_ten.first
+      'top read'
+    elsif self.in?(top_ten)
+      'hot read'
+    else
+      'not hot'
+    end
+  end
 end

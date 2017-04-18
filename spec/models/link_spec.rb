@@ -45,4 +45,26 @@ RSpec.describe Link, type: :model do
       expect(top_links).to eq sorted
     end
   end
+
+  context '#status' do
+
+    let!(:top_read)      { create(:link, read_count: 25) }
+    let!(:hot_reads)     { create_list(:link, 9, read_count: 15) }
+    let!(:not_hot_reads) { create_list(:link, 10, read_count: 10) }
+
+    it 'returns top read for top read' do
+
+      expect(top_read.status).to eq 'top read'
+    end
+
+    it 'returns hot read for hot read' do
+
+      hot_reads.each { |read| expect(read.status).to eq 'hot read' }
+    end
+
+    it 'returns not hot for other reads' do
+
+      not_hot_reads.each { |read| expect(read.status).to eq 'not hot' }
+    end
+  end
 end
