@@ -1,9 +1,11 @@
-<h3>Hot Reads</h3>
+<h1>Hot Reads</h1>
 
 <div id='links-list'>
   <% @links.each do |link| %>
     <div class='link'>
-      <h2><%= link.url %></h2>
-    <div><br><hr>
+      <h3>
+        <a href= <%= link.url %> ><%= link.url %></a>
+      </h3>
+    <div>
   <% end %>
 </div>
